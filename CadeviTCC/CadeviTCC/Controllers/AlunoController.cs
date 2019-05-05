@@ -59,6 +59,7 @@ namespace CadeviTCC.Controllers
             }
 
             ViewBag.IdUsuario = new SelectList(db.Usuarios.Where(x => x.IdTipoUsuario == 3), "Id", "Nome", aluno.IdUsuario);
+
             return View(aluno);
         }
 
