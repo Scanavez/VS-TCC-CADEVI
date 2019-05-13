@@ -41,7 +41,7 @@ namespace CadeviTCC.Controllers
                 Session["usuarioLogadoID"] = u.Id.ToString();
                 Session["usuarioLogadoNome"] = u.Nome;
 
-                return RedirectToActionPermanent("Index");
+                return RedirectToActionPermanent("Index", "Aluno");
             }
 
             return View(u).Mensagem("Digite seu Login", "Erro");
