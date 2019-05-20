@@ -27,11 +27,15 @@ namespace CadeviTCC.Models.Context
 
             modelBuilder.Configurations.Add<Documento>(new DocumentoMap());
 
+            modelBuilder.Configurations.Add<ArquivoDigitalDocumento>(new ArquivoDigitalDocumentoMap());
+
             modelBuilder.Configurations.Add<Aluno>(new AlunoMap());
 
             base.OnModelCreating(modelBuilder);
         }
 
         public System.Data.Entity.DbSet<CadeviTCC.Models.Entities.TipoUsuario> TipoUsuarios { get; set; }
+
+        public System.Data.Entity.DbSet<CadeviTCC.Models.Entities.ArquivoDigitalDocumento> ArquivoDigitalDocumentoes { get; set; }
     }
 }

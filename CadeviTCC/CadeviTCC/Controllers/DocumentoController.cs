@@ -22,7 +22,7 @@ namespace CadeviTCC.Controllers
         }
 
         // GET: Documento/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -60,7 +60,7 @@ namespace CadeviTCC.Controllers
         }
 
         // GET: Documento/Edit/5
-        public ActionResult Edit(long? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -91,7 +91,7 @@ namespace CadeviTCC.Controllers
         }
 
         // GET: Documento/Delete/5
-        public ActionResult Delete(long? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -108,7 +108,7 @@ namespace CadeviTCC.Controllers
         // POST: Documento/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Documento documento = db.Documentos.Find(id);
             db.Documentos.Remove(documento);

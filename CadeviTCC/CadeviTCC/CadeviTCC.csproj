@@ -160,6 +160,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlunoController.cs" />
+    <Compile Include="Controllers\ArquivoDigitalDocumentoController.cs" />
     <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -168,10 +169,12 @@
     </Compile>
     <Compile Include="Models\Context\ContextBanco.cs" />
     <Compile Include="Models\Entities\Aluno.cs" />
+    <Compile Include="Models\Entities\ArquivoDigitalDocumento.cs" />
     <Compile Include="Models\Entities\Documento.cs" />
     <Compile Include="Models\Entities\Usuario.cs" />
     <Compile Include="Models\Entities\TipoUsuario.cs" />
     <Compile Include="Models\Map\AlunoMap.cs" />
+    <Compile Include="Models\Map\ArquivoDigitalDocumentoMap.cs" />
     <Compile Include="Models\Map\DocumentoMap.cs" />
     <Compile Include="Models\Map\UsuarioMap.cs" />
     <Compile Include="Models\Map\TipoUsuarioMap.cs" />
@@ -330,6 +333,14 @@
     <Content Include="Views\Aluno\Edit.cshtml" />
     <Content Include="Views\Aluno\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Documento\Delete.cshtml" />
+    <Content Include="Views\Documento\Details.cshtml" />
+    <Content Include="Views\Documento\Edit.cshtml" />
+    <Content Include="Views\ArquivoDigitalDocumento\Create.cshtml" />
+    <Content Include="Views\ArquivoDigitalDocumento\Delete.cshtml" />
+    <Content Include="Views\ArquivoDigitalDocumento\Details.cshtml" />
+    <Content Include="Views\ArquivoDigitalDocumento\Edit.cshtml" />
+    <Content Include="Views\ArquivoDigitalDocumento\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
