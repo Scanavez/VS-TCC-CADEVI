@@ -55,15 +55,20 @@ namespace CadeviTCC.Controllers
             {
                 if (upload != null && upload.ContentLength > 0)
                 {
+                    var Nome = System.IO.Path.GetFileName(upload.FileName);
+
+                    var nomeArquivo = Nome.Split('.')[0];
+
                     var arquivo = new ArquivoDigitalDocumento
                     {
-                        NomeArquivo = System.IO.Path.GetFileName(upload.FileName),
+                        NomeArquivo = Nome,
                     };
                     using (var reader = new System.IO.BinaryReader(upload.InputStream))
                     {
                         arquivo.Arquivo = reader.ReadBytes(upload.ContentLength);
                     }
                     arquivoDigitalDocumento.Arquivo = arquivo.Arquivo;
+                    arquivoDigitalDocumento.NomeArquivo = arquivo.NomeArquivo;
                 }
                 db.ArquivoDigitalDocumentoes.Add(arquivoDigitalDocumento);
                 db.SaveChanges();
@@ -72,6 +77,15 @@ namespace CadeviTCC.Controllers
 
             ViewBag.IdDocumento = new SelectList(db.Documentos, "Id", "Descricao", arquivoDigitalDocumento.IdDocumento);
             return View(arquivoDigitalDocumento);
+        }
+
+        public FileResult DownloadFile(int? id)
+        {
+
+            var Arquivo = db.ArquivoDigitalDocumentoes.Where(x => x.Id == id).FirstOrDefault();
+
+
+            return File(Arquivo.Arquivo, "application/pdf", Arquivo.NomeArquivo);
         }
 
         // GET: ArquivoDigitalDocumento/Edit/5
