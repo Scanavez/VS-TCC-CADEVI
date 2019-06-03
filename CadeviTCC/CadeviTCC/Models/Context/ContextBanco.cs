@@ -19,6 +19,8 @@ namespace CadeviTCC.Models.Context
 
         public DbSet<Aluno> Alunos { get; set; }
 
+        public DbSet<AlunoxDocumento> alunoxDocumento { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add<Usuario>(new UsuarioMap());
@@ -30,6 +32,8 @@ namespace CadeviTCC.Models.Context
             modelBuilder.Configurations.Add<ArquivoDigitalDocumento>(new ArquivoDigitalDocumentoMap());
 
             modelBuilder.Configurations.Add<Aluno>(new AlunoMap());
+
+            modelBuilder.Configurations.Add<AlunoxDocumento>(new AlunoxDocumentoMap());
 
             base.OnModelCreating(modelBuilder);
         }

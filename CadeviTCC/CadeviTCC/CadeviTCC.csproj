@@ -170,11 +170,13 @@
     </Compile>
     <Compile Include="Models\Context\ContextBanco.cs" />
     <Compile Include="Models\Entities\Aluno.cs" />
+    <Compile Include="Models\Entities\AlunoxDocumento.cs" />
     <Compile Include="Models\Entities\ArquivoDigitalDocumento.cs" />
     <Compile Include="Models\Entities\Documento.cs" />
     <Compile Include="Models\Entities\Usuario.cs" />
     <Compile Include="Models\Entities\TipoUsuario.cs" />
     <Compile Include="Models\Map\AlunoMap.cs" />
+    <Compile Include="Models\Map\AlunoxDocumentoMap.cs" />
     <Compile Include="Models\Map\ArquivoDigitalDocumentoMap.cs" />
     <Compile Include="Models\Map\DocumentoMap.cs" />
     <Compile Include="Models\Map\UsuarioMap.cs" />
@@ -342,6 +344,7 @@
     <Content Include="Views\ArquivoDigitalDocumento\Details.cshtml" />
     <Content Include="Views\ArquivoDigitalDocumento\Edit.cshtml" />
     <Content Include="Views\ArquivoDigitalDocumento\Index.cshtml" />
+    <Content Include="Views\ArquivoDigitalDocumento\IndexDoc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

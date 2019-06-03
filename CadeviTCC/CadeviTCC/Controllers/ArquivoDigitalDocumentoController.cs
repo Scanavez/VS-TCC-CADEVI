@@ -22,6 +22,12 @@ namespace CadeviTCC.Controllers
             return View(arquivoDigitalDocumentoes.ToList());
         }
 
+        public ActionResult IndexDoc(int? Id)
+        {
+            var arquivoDigitalDocumentoes = db.ArquivoDigitalDocumentoes.Where(x => x.IdDocumento == Id);
+            return View(arquivoDigitalDocumentoes.ToList());
+        }
+
         // GET: ArquivoDigitalDocumento/Details/5
         public ActionResult Details(int? id)
         {

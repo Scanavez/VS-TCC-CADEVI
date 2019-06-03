@@ -37,6 +37,11 @@ namespace CadeviTCC.Controllers
             return View(aluno);
         }
 
+        public ActionResult BuscarDoc(int? id)
+        {
+            return RedirectToAction("IndexDoc", "Documento", new { id });
+        }
+
         // GET: Aluno/Create
         public ActionResult Create()
         {

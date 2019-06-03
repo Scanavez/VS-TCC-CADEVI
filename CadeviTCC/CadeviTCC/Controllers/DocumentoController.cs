@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -21,6 +22,13 @@ namespace CadeviTCC.Controllers
             return View(db.Documentos.ToList());
         }
 
+        public ActionResult IndexDoc(int Id)
+        {
+            var documento = db.Documentos.SqlQuery(" select * from aluno l inner join alunoxdocumento adoc on adoc.aluno_id = l.id inner join documento doc on doc.id = adoc.documento_id where l.id = @id ", new SqlParameter("@id", Id));
+
+            return View(documento.ToList());
+        }
+
         // GET: Documento/Details/5
         public ActionResult Details(int? id)
         {
@@ -34,6 +42,12 @@ namespace CadeviTCC.Controllers
                 return HttpNotFound();
             }
             return View(documento);
+        }
+
+        // GET: Documento/Details/5
+        public ActionResult Buscar(int id)
+        {
+            return RedirectToAction("IndexDoc", "ArquivoDigitalDocumento", new { id });
         }
 
         // GET: Documento/Create
