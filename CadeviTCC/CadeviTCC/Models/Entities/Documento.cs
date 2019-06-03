@@ -26,6 +26,8 @@ namespace CadeviTCC.Models.Context.Entities
 
         public virtual ICollection<AlunoxDocumento> AlunoxDocumento { get; set; }
 
+        //public int? IdAluno { get; set; }
 
+        
     }
 }

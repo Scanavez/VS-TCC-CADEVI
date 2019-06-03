@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using CadeviTCC.Models.Context;
 using CadeviTCC.Models.Context.Entities;
+using CadeviTCC.Models.DTO;
 
 namespace CadeviTCC.Controllers
 {
@@ -24,7 +25,20 @@ namespace CadeviTCC.Controllers
 
         public ActionResult IndexDoc(int Id)
         {
-            var documento = db.Documentos.SqlQuery(" select * from aluno l inner join alunoxdocumento adoc on adoc.aluno_id = l.id inner join documento doc on doc.id = adoc.documento_id where l.id = @id ", new SqlParameter("@id", Id));
+            var documento = from doc in db.Documentos.ToList()
+                            from alunodoc in db.alunoxDocumento.ToList().Where(x => x.IdDocumento == doc.Id)
+                            where alunodoc.IdAluno == Id
+                            select new DocumentoDTO {
+                                IdAluno = Id,
+                                IdDocumento = doc.Id,
+                                Descricao = doc.Descricao
+                            };
+
+            //var documentoGrid = from doc in documento.ToList()
+            //                    select new DocumentoDTO
+            //                    {
+            //                        IdDocumento = doc.Id
+            //                    };
 
             return View(documento.ToList());
         }

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CadeviTCC.Models.DTO.DocumentoDTO>
+
+@{
+    ViewBag.Title = "IndexDoc";
+}
+
+<h2>IndexDoc</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        @*<th style="visibility:hidden;">
+            @Html.DisplayNameFor(model => model.IdAluno)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td style="visibility:hidden;">
+            @Html.DisplayFor(modelItem => item.IdDocumento)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        @*<td style="visibility:hidden;">
+            @Html.DisplayFor(modelItem => item.IdAluno)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
