@@ -40,6 +40,8 @@ namespace CadeviTCC.Models.Context
 
         public System.Data.Entity.DbSet<CadeviTCC.Models.Entities.TipoUsuario> TipoUsuarios { get; set; }
 
-        public System.Data.Entity.DbSet<CadeviTCC.Models.Entities.ArquivoDigitalDocumento> ArquivoDigitalDocumentoes { get; set; }
+        public System.Data.Entity.DbSet<CadeviTCC.Models.Entities.ArquivoDigitalDocumento> ArquivoDigitalDocumento { get; set; }
+
+       //public System.Data.Entity.DbSet<CadeviTCC.Models.DTO.ArquivoDigitalDocumentoDTO> ArquivoDigitalDocumentoDT { get; set; }
     }
 }

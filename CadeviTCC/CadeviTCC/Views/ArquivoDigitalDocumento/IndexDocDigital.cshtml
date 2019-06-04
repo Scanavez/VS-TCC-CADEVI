@@ -1,19 +1,16 @@
-﻿@model IEnumerable<CadeviTCC.Models.Entities.ArquivoDigitalDocumento>
+﻿@model IEnumerable<CadeviTCC.Models.DTO.ArquivoDigitalDocumentoDTO>
 
 @{
-    ViewBag.Title = "IndexDoc";
+    ViewBag.Title = "IndexDocDigital";
 }
 
-<h2>IndexDoc</h2>
+<h2>IndexDocDigital</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.documento.Descricao)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.NomeArquivo)
         </th>
@@ -22,9 +19,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.documento.Descricao)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.NomeArquivo)
         </td>

@@ -18,6 +18,7 @@ namespace CadeviTCC.Controllers
         // GET: Aluno
         public ActionResult Index()
         {
+            var IdUsuario = Convert.ToInt32(Session["usuarioLogadoID"]);
             var alunos = db.Alunos.Include(a => a.usuario);
             return View(alunos.ToList());
         }
@@ -37,9 +38,11 @@ namespace CadeviTCC.Controllers
             return View(aluno);
         }
 
-        public ActionResult BuscarDoc(int? id)
+        public ActionResult DocumentosAluno(int? id)
         {
-            return RedirectToAction("IndexDoc", "Documento", new { id });
+            Session.Remove("IdAluno");
+            Session["IdAluno"] = id.ToString();
+            return RedirectToAction("IndexDocAluno", "Documento", new { id });
         }
 
         // GET: Aluno/Create

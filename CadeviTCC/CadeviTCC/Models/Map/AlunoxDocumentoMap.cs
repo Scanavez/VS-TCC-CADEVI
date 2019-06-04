@@ -26,8 +26,6 @@ namespace CadeviTCC.Models.Map
             HasRequired(x => x.Documento)
                 .WithMany(x => x.AlunoxDocumento)
                 .HasForeignKey(x => x.IdDocumento);
-
-
         }
     }
 }

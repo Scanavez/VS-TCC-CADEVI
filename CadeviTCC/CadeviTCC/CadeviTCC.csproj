@@ -169,6 +169,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Context\ContextBanco.cs" />
+    <Compile Include="Models\DTO\ArquivoDigitalDocumentoDTO.cs" />
     <Compile Include="Models\DTO\DocumentoDTO.cs" />
     <Compile Include="Models\Entities\Aluno.cs" />
     <Compile Include="Models\Entities\AlunoxDocumento.cs" />
@@ -340,13 +341,14 @@
     <Content Include="Views\Documento\Delete.cshtml" />
     <Content Include="Views\Documento\Details.cshtml" />
     <Content Include="Views\Documento\Edit.cshtml" />
+    <Content Include="Views\Documento\IndexDocAluno.cshtml" />
     <Content Include="Views\ArquivoDigitalDocumento\Create.cshtml" />
     <Content Include="Views\ArquivoDigitalDocumento\Delete.cshtml" />
     <Content Include="Views\ArquivoDigitalDocumento\Details.cshtml" />
     <Content Include="Views\ArquivoDigitalDocumento\Edit.cshtml" />
     <Content Include="Views\ArquivoDigitalDocumento\Index.cshtml" />
-    <Content Include="Views\ArquivoDigitalDocumento\IndexDoc.cshtml" />
-    <Content Include="Views\Documento\IndexDoc.cshtml" />
+    <Content Include="Views\ArquivoDigitalDocumento\IndexDocDigital.cshtml" />
+    <Content Include="Views\Documento\VincularDocumento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

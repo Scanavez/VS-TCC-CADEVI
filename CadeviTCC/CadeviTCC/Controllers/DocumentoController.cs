@@ -23,13 +23,12 @@ namespace CadeviTCC.Controllers
             return View(db.Documentos.ToList());
         }
 
-        public ActionResult IndexDoc(int Id)
+        public ActionResult IndexDocAluno(int Id)
         {
             var documento = from doc in db.Documentos.ToList()
                             from alunodoc in db.alunoxDocumento.ToList().Where(x => x.IdDocumento == doc.Id)
                             where alunodoc.IdAluno == Id
                             select new DocumentoDTO {
-                                IdAluno = Id,
                                 IdDocumento = doc.Id,
                                 Descricao = doc.Descricao
                             };
@@ -58,16 +57,25 @@ namespace CadeviTCC.Controllers
             return View(documento);
         }
 
+
         // GET: Documento/Details/5
         public ActionResult Buscar(int id)
         {
-            return RedirectToAction("IndexDoc", "ArquivoDigitalDocumento", new { id });
+            Session.Remove("IdDocumento");
+            Session["IdDocumento"] = id.ToString();
+            return RedirectToAction("IndexDocDigital", "ArquivoDigitalDocumento", new { id });
         }
 
         // GET: Documento/Create
         public ActionResult Create()
         {
             return View();
+        }
+
+        // GET: Documento/Create
+        public ActionResult CreateDocAluno()
+        {
+            return RedirectToAction("IndexDocDigital", "ArquivoDigitalDocumento", new { id });
         }
 
         // POST: Documento/Create

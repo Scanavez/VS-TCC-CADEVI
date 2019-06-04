@@ -17,9 +17,13 @@ namespace CadeviTCC.Models.Entities
 
         public byte[] Arquivo { get; set; }
 
-        public int IdDocumento { get; set; }
+        //public int IdDocumento { get; set; }
 
-        public virtual Documento documento { get; set; }
+        //public virtual Documento documento { get; set; }
+
+        public virtual AlunoxDocumento alunoxDocumento { get; set; }
+
+        public int IdAlunoXDocumento { get; set; }
 
     }
 }

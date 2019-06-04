@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CadeviTCC.Models.Context;
+using CadeviTCC.Models.DTO;
 using CadeviTCC.Models.Entities;
 
 namespace CadeviTCC.Controllers
@@ -18,14 +19,26 @@ namespace CadeviTCC.Controllers
         // GET: ArquivoDigitalDocumento
         public ActionResult Index()
         {
-            var arquivoDigitalDocumentoes = db.ArquivoDigitalDocumentoes.Include(a => a.documento);
-            return View(arquivoDigitalDocumentoes.ToList());
+            var arquivoDigitalDocumento = db.ArquivoDigitalDocumento.Include(a => a.alunoxDocumento).ToList();
+            return View(arquivoDigitalDocumento);
         }
 
-        public ActionResult IndexDoc(int? Id)
+        public ActionResult IndexDocDigital(int id)
         {
-            var arquivoDigitalDocumentoes = db.ArquivoDigitalDocumentoes.Where(x => x.IdDocumento == Id);
-            return View(arquivoDigitalDocumentoes.ToList());
+            var IdAluno = Convert.ToInt32(Session["IdAluno"]);
+            var IdDocumento = Convert.ToInt32(Session["IdDocumento"]);
+
+            var arquivo = from arquivoB in db.ArquivoDigitalDocumento.ToList()
+                          from alunoDoc in db.alunoxDocumento.ToList().Where(x => x.Id == arquivoB.IdAlunoXDocumento)
+                          where alunoDoc.IdAluno == IdAluno && alunoDoc.IdDocumento == IdDocumento
+                          select new ArquivoDigitalDocumentoDTO
+                          {
+                              Id = arquivoB.Id,
+                              NomeArquivo = arquivoB.NomeArquivo
+                          };
+
+            //var arquivoDigitalDocumento = db.ArquivoDigitalDocumento.Include(a => a.alunoxDocumento).ToList();
+            return View(arquivo.ToList());
         }
 
         // GET: ArquivoDigitalDocumento/Details/5
@@ -35,7 +48,7 @@ namespace CadeviTCC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ArquivoDigitalDocumento arquivoDigitalDocumento = db.ArquivoDigitalDocumentoes.Find(id);
+            ArquivoDigitalDocumento arquivoDigitalDocumento = db.ArquivoDigitalDocumento.Find(id);
             if (arquivoDigitalDocumento == null)
             {
                 return HttpNotFound();
@@ -46,16 +59,16 @@ namespace CadeviTCC.Controllers
         // GET: ArquivoDigitalDocumento/Create
         public ActionResult Create()
         {
-            ViewBag.IdDocumento = new SelectList(db.Documentos, "Id", "Descricao");
+            ViewBag.IdAlunoXDocumento = new SelectList(db.alunoxDocumento, "Id", "Id");
             return View();
         }
 
         // POST: ArquivoDigitalDocumento/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,NomeArquivo,Arquivo,IdDocumento")] ArquivoDigitalDocumento arquivoDigitalDocumento, HttpPostedFileBase upload)
+        public ActionResult Create([Bind(Include = "Id,NomeArquivo,Arquivo,IdDocumento,IdAlunoXDocumento")] ArquivoDigitalDocumento arquivoDigitalDocumento, HttpPostedFileBase upload)
         {
             if (ModelState.IsValid)
             {
@@ -76,22 +89,13 @@ namespace CadeviTCC.Controllers
                     arquivoDigitalDocumento.Arquivo = arquivo.Arquivo;
                     arquivoDigitalDocumento.NomeArquivo = arquivo.NomeArquivo;
                 }
-                db.ArquivoDigitalDocumentoes.Add(arquivoDigitalDocumento);
+                db.ArquivoDigitalDocumento.Add(arquivoDigitalDocumento);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdDocumento = new SelectList(db.Documentos, "Id", "Descricao", arquivoDigitalDocumento.IdDocumento);
+            ViewBag.IdAlunoXDocumento = new SelectList(db.alunoxDocumento, "Id", "Id", arquivoDigitalDocumento.IdAlunoXDocumento);
             return View(arquivoDigitalDocumento);
-        }
-
-        public FileResult DownloadFile(int? id)
-        {
-
-            var Arquivo = db.ArquivoDigitalDocumentoes.Where(x => x.Id == id).FirstOrDefault();
-
-
-            return File(Arquivo.Arquivo, "application/pdf", Arquivo.NomeArquivo);
         }
 
         // GET: ArquivoDigitalDocumento/Edit/5
@@ -101,21 +105,21 @@ namespace CadeviTCC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ArquivoDigitalDocumento arquivoDigitalDocumento = db.ArquivoDigitalDocumentoes.Find(id);
+            ArquivoDigitalDocumento arquivoDigitalDocumento = db.ArquivoDigitalDocumento.Find(id);
             if (arquivoDigitalDocumento == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IdDocumento = new SelectList(db.Documentos, "Id", "Descricao", arquivoDigitalDocumento.IdDocumento);
+            ViewBag.IdAlunoXDocumento = new SelectList(db.alunoxDocumento, "Id", "Id", arquivoDigitalDocumento.IdAlunoXDocumento);
             return View(arquivoDigitalDocumento);
         }
 
         // POST: ArquivoDigitalDocumento/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,NomeArquivo,Arquivo,IdDocumento")] ArquivoDigitalDocumento arquivoDigitalDocumento)
+        public ActionResult Edit([Bind(Include = "Id,NomeArquivo,Arquivo,IdDocumento,IdAlunoXDocumento")] ArquivoDigitalDocumento arquivoDigitalDocumento)
         {
             if (ModelState.IsValid)
             {
@@ -123,7 +127,7 @@ namespace CadeviTCC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdDocumento = new SelectList(db.Documentos, "Id", "Descricao", arquivoDigitalDocumento.IdDocumento);
+            ViewBag.IdAlunoXDocumento = new SelectList(db.alunoxDocumento, "Id", "Id", arquivoDigitalDocumento.IdAlunoXDocumento);
             return View(arquivoDigitalDocumento);
         }
 
@@ -134,7 +138,7 @@ namespace CadeviTCC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ArquivoDigitalDocumento arquivoDigitalDocumento = db.ArquivoDigitalDocumentoes.Find(id);
+            ArquivoDigitalDocumento arquivoDigitalDocumento = db.ArquivoDigitalDocumento.Find(id);
             if (arquivoDigitalDocumento == null)
             {
                 return HttpNotFound();
@@ -147,8 +151,8 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ArquivoDigitalDocumento arquivoDigitalDocumento = db.ArquivoDigitalDocumentoes.Find(id);
-            db.ArquivoDigitalDocumentoes.Remove(arquivoDigitalDocumento);
+            ArquivoDigitalDocumento arquivoDigitalDocumento = db.ArquivoDigitalDocumento.Find(id);
+            db.ArquivoDigitalDocumento.Remove(arquivoDigitalDocumento);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -21,12 +21,13 @@ namespace CadeviTCC.Models.Map
 
             Property(x => x.Arquivo).HasColumnName("Arquivo");
 
-            Property(x => x.IdDocumento).HasColumnName("IdDocumento");
+            //Property(x => x.IdDocumento).HasColumnName("IdDocumento");
 
+            Property(x => x.IdAlunoXDocumento).HasColumnName("IdAlunoXDocumento");
 
-            HasRequired(x => x.documento)
-            .WithMany(x => x.arquivoDigitalDocumentos)
-            .HasForeignKey(x => x.IdDocumento);
+            HasRequired(x => x.alunoxDocumento)
+            .WithMany(x => x.ArquivoDigitalDocumentos)
+            .HasForeignKey(x => x.IdAlunoXDocumento);
         }
 
     }

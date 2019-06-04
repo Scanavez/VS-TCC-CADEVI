@@ -12,7 +12,7 @@ namespace CadeviTCC.Models.Context.Entities
     {
         public Documento()
         {
-            arquivoDigitalDocumentos = new List<ArquivoDigitalDocumento>();
+            //arquivoDigitalDocumentos = new List<ArquivoDigitalDocumento>();
             AlunoxDocumento = new List<AlunoxDocumento>();
         }
     
@@ -22,7 +22,7 @@ namespace CadeviTCC.Models.Context.Entities
 
         public DateTime HoraRegistro { get; set; }
 
-        public virtual ICollection<ArquivoDigitalDocumento> arquivoDigitalDocumentos { get; set; }
+        //public virtual ICollection<ArquivoDigitalDocumento> arquivoDigitalDocumentos { get; set; }
 
         public virtual ICollection<AlunoxDocumento> AlunoxDocumento { get; set; }
 
