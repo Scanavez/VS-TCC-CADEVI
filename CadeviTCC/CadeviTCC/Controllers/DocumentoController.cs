@@ -66,6 +66,34 @@ namespace CadeviTCC.Controllers
             return RedirectToAction("IndexDocDigital", "ArquivoDigitalDocumento", new { id });
         }
 
+        public ActionResult Desvincular(int id)
+        {
+            //Session.Remove("IdDocumento");
+            //Session["IdDocumento"] = id.ToString();
+
+            var idAluno = Convert.ToInt32(Session["IdAluno"]);
+
+            var existeArqDigital = from alunoDoc in db.alunoxDocumento.ToList()
+                                   from arq in db.ArquivoDigitalDocumento.ToList().Where(x => x.IdAlunoXDocumento == alunoDoc.Id)
+                                   where alunoDoc.IdDocumento == id && alunoDoc.IdAluno == idAluno
+                                   select new DocumentoDTO
+                                   {
+                                       IdDocumento = alunoDoc.Id
+                                   };
+
+            if (existeArqDigital.Count() > 0)
+            {
+                var Id = idAluno;
+                return RedirectToAction("IndexDocAluno", "Documento", new { Id });
+            }
+            else
+            {
+                return RedirectToAction("Desvincular", "AlunoxDocumento", new { id });
+            }
+
+            
+        }
+
         // GET: Documento/Create
         public ActionResult Create()
         {
@@ -73,9 +101,26 @@ namespace CadeviTCC.Controllers
         }
 
         // GET: Documento/Create
-        public ActionResult CreateDocAluno()
+        public ActionResult VincularNovoDocumento(int Id)
         {
-            return RedirectToAction("IndexDocDigital", "ArquivoDigitalDocumento", new { id });
+            return RedirectToAction("VincularNovoDoc", "AlunoxDocumento",  new {Id});
+        }
+
+        public ActionResult VincularDocumento()
+        {
+            var IdAluno = Convert.ToInt32(Session["IdAluno"]);
+
+            var IdsDocVinculado = db.alunoxDocumento.Where(x => x.IdAluno == IdAluno).Select(x => x.IdDocumento).ToList();
+
+            var DocNVinculado = from doc in db.Documentos.ToList()
+                                where !IdsDocVinculado.Contains(doc.Id)
+                                select new DocumentoDTO
+                                {
+                                    IdDocumento = doc.Id,
+                                    Descricao = doc.Descricao
+                                };
+
+            return View(DocNVinculado.ToList());
         }
 
         // POST: Documento/Create

@@ -7,7 +7,7 @@
 <h2>IndexDoc</h2>
 
 <p>
-    @Html.ActionLink("Vincular Documento", "CreateDocAluno")
+    @Html.ActionLink("Vincular Documento", "VincularDocumento")
 </p>
 <table class="table">
     <tr>
@@ -24,7 +24,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Desvincular", "Desvincular", new { id = item.IdDocumento }) |
             @Html.ActionLink("Buscar", "Buscar", new { id=item.IdDocumento }) |
         </td>
     </tr>

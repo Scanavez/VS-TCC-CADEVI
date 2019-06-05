@@ -161,6 +161,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AlunoController.cs" />
+    <Compile Include="Controllers\AlunoxDocumentoController.cs" />
     <Compile Include="Controllers\ArquivoDigitalDocumentoController.cs" />
     <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -349,6 +350,11 @@
     <Content Include="Views\ArquivoDigitalDocumento\Index.cshtml" />
     <Content Include="Views\ArquivoDigitalDocumento\IndexDocDigital.cshtml" />
     <Content Include="Views\Documento\VincularDocumento.cshtml" />
+    <Content Include="Views\AlunoxDocumento\Create.cshtml" />
+    <Content Include="Views\AlunoxDocumento\Delete.cshtml" />
+    <Content Include="Views\AlunoxDocumento\Details.cshtml" />
+    <Content Include="Views\AlunoxDocumento\Edit.cshtml" />
+    <Content Include="Views\AlunoxDocumento\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
