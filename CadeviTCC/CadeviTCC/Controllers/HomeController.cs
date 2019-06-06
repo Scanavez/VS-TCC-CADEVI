@@ -35,11 +35,14 @@ namespace CadeviTCC.Controllers
 
             HomeRepository repository = new HomeRepository();
 
-
-            if (repository.realizarLogin(u))
+            var usuario = repository.realizarLogin(u);
+            if (usuario != null)
             {
-                Session["usuarioLogadoID"] = u.Id.ToString();
-                Session["usuarioLogadoNome"] = u.Nome;
+                Session["usuarioLogadoID"] = usuario.Id.ToString();
+                Session["usuarioLogadoNome"] = usuario.Nome;
+                Session["usuarioTipo"] = usuario.IdTipoUsuario;
+
+                int Id = Convert.ToInt32(Session["usuarioLogadoID"]);
 
                 return RedirectToActionPermanent("Index", "Aluno");
             }

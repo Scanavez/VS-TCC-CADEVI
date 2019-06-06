@@ -4,7 +4,7 @@
     ViewBag.Title = "IndexDoc";
 }
 
-<h2>IndexDoc</h2>
+<h2>Documentos</h2>
 
 <p>
     @Html.ActionLink("Vincular Documento", "VincularDocumento")
@@ -23,9 +23,9 @@
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
             @Html.ActionLink("Desvincular", "Desvincular", new { id = item.IdDocumento }) |
-            @Html.ActionLink("Buscar", "Buscar", new { id=item.IdDocumento }) |
+            @Html.ActionLink("Buscar", "Buscar", new { id=item.IdDocumento }) 
         </td>
     </tr>
 }

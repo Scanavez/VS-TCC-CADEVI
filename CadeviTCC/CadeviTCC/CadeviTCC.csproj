@@ -355,6 +355,7 @@
     <Content Include="Views\AlunoxDocumento\Details.cshtml" />
     <Content Include="Views\AlunoxDocumento\Edit.cshtml" />
     <Content Include="Views\AlunoxDocumento\Index.cshtml" />
+    <Content Include="Views\ArquivoDigitalDocumento\Deletar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

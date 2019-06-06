@@ -12,6 +12,7 @@ namespace CadeviTCC.Models.DTO
         //[HiddenInput(DisplayValue = false)]
         public int IdDocumento { get; set; }
 
+        [Display(Name = "Tipo de documento")]
         public string Descricao { get; set; }
 
         //[HiddenInput(DisplayValue = false)]

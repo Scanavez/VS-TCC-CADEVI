@@ -8,12 +8,16 @@ using System.Web;
 using System.Web.Mvc;
 using CadeviTCC.Models.Context;
 using CadeviTCC.Models.Entities;
+using CadeviTCC.Repository;
 
 namespace CadeviTCC.Controllers
 {
     public class UsuarioController : Controller
     {
         private ContextBanco db = new ContextBanco();
+
+        private HomeRepository repository = new HomeRepository();
+
 
         // GET: Usuario
         public ActionResult Index()

@@ -9,12 +9,15 @@ using System.Web.Mvc;
 using CadeviTCC.Models.Context;
 using CadeviTCC.Models.DTO;
 using CadeviTCC.Models.Entities;
+using CadeviTCC.Repository;
 
 namespace CadeviTCC.Controllers
 {
     public class ArquivoDigitalDocumentoController : Controller
     {
         private ContextBanco db = new ContextBanco();
+
+        private HomeRepository repository = new HomeRepository();
 
         // GET: ArquivoDigitalDocumento
         public ActionResult Index()
@@ -59,8 +62,18 @@ namespace CadeviTCC.Controllers
         // GET: ArquivoDigitalDocumento/Create
         public ActionResult Create()
         {
-            ViewBag.IdAlunoXDocumento = new SelectList(db.alunoxDocumento, "Id", "Id");
-            return View();
+            var IdTipo = Convert.ToInt32(Session["usuarioTipo"]);
+            var id = Convert.ToInt32(Session["IdDocumento"]);
+
+            if (IdTipo == 2)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("IndexDocDigital", "ArquivoDigitalDocumento", new { id });
+            }
+
         }
 
         // POST: ArquivoDigitalDocumento/Create
@@ -68,8 +81,11 @@ namespace CadeviTCC.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,NomeArquivo,Arquivo,IdDocumento,IdAlunoXDocumento")] ArquivoDigitalDocumento arquivoDigitalDocumento, HttpPostedFileBase upload)
+        public ActionResult Create([Bind(Include = "Id,Arquivo")] ArquivoDigitalDocumento arquivoDigitalDocumento, HttpPostedFileBase upload)
         {
+            var idVinculo = Convert.ToInt32(Session["VincAlunoDoc"]);
+            var id = Convert.ToInt32(Session["IdAluno"]);
+
             if (ModelState.IsValid)
             {
                 if (upload != null && upload.ContentLength > 0)
@@ -88,14 +104,13 @@ namespace CadeviTCC.Controllers
                     }
                     arquivoDigitalDocumento.Arquivo = arquivo.Arquivo;
                     arquivoDigitalDocumento.NomeArquivo = arquivo.NomeArquivo;
+                    arquivoDigitalDocumento.IdAlunoXDocumento = idVinculo;
                 }
                 db.ArquivoDigitalDocumento.Add(arquivoDigitalDocumento);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexDocDigital", new { id });
             }
-
-            ViewBag.IdAlunoXDocumento = new SelectList(db.alunoxDocumento, "Id", "Id", arquivoDigitalDocumento.IdAlunoXDocumento);
-            return View(arquivoDigitalDocumento);
+            return View(false);
         }
 
         // GET: ArquivoDigitalDocumento/Edit/5
@@ -151,10 +166,13 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var Id = Convert.ToInt32(Session["VincAlunoDoc"]);
+
+
             ArquivoDigitalDocumento arquivoDigitalDocumento = db.ArquivoDigitalDocumento.Find(id);
             db.ArquivoDigitalDocumento.Remove(arquivoDigitalDocumento);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexDocDigital", new { Id });
         }
 
         protected override void Dispose(bool disposing)

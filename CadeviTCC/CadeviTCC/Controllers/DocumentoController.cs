@@ -10,12 +10,15 @@ using System.Web.Mvc;
 using CadeviTCC.Models.Context;
 using CadeviTCC.Models.Context.Entities;
 using CadeviTCC.Models.DTO;
+using CadeviTCC.Repository;
 
 namespace CadeviTCC.Controllers
 {
     public class DocumentoController : Controller
     {
         private ContextBanco db = new ContextBanco();
+
+        private HomeRepository repository = new HomeRepository();
 
         // GET: Documento
         public ActionResult Index()
@@ -63,6 +66,19 @@ namespace CadeviTCC.Controllers
         {
             Session.Remove("IdDocumento");
             Session["IdDocumento"] = id.ToString();
+
+            Session.Remove("VincAlunoDoc");
+
+            var IdAluno = Convert.ToInt32(Session["IdAluno"]);
+
+            //db.alunoxDocumento.Where(x => x.IdAluno == IdAluno).Select(x => x.IdDocumento).ToList();
+
+            var IdVinculo = db.alunoxDocumento.Where(x => x.IdAluno == IdAluno && x.IdDocumento == id)
+                .Select(x => x.Id).FirstOrDefault();
+
+            Session["VincAlunoDoc"] = IdVinculo.ToString();
+
+
             return RedirectToAction("IndexDocDigital", "ArquivoDigitalDocumento", new { id });
         }
 
@@ -71,27 +87,37 @@ namespace CadeviTCC.Controllers
             //Session.Remove("IdDocumento");
             //Session["IdDocumento"] = id.ToString();
 
+            Int32 Id;
+
             var idAluno = Convert.ToInt32(Session["IdAluno"]);
 
-            var existeArqDigital = from alunoDoc in db.alunoxDocumento.ToList()
-                                   from arq in db.ArquivoDigitalDocumento.ToList().Where(x => x.IdAlunoXDocumento == alunoDoc.Id)
-                                   where alunoDoc.IdDocumento == id && alunoDoc.IdAluno == idAluno
-                                   select new DocumentoDTO
-                                   {
-                                       IdDocumento = alunoDoc.Id
-                                   };
+            var IdTipo = Convert.ToInt32(Session["usuarioTipo"]);
 
-            if (existeArqDigital.Count() > 0)
+            if (IdTipo == 2)
             {
-                var Id = idAluno;
-                return RedirectToAction("IndexDocAluno", "Documento", new { Id });
+                var existeArqDigital = from alunoDoc in db.alunoxDocumento.ToList()
+                                       from arq in db.ArquivoDigitalDocumento.ToList().Where(x => x.IdAlunoXDocumento == alunoDoc.Id)
+                                       where alunoDoc.IdDocumento == id && alunoDoc.IdAluno == idAluno
+                                       select new DocumentoDTO
+                                       {
+                                           IdDocumento = alunoDoc.Id
+                                       };
+
+                if (existeArqDigital.Count() > 0)
+                {
+                    Id = idAluno;
+                    return RedirectToAction("IndexDocAluno", "Documento", new { Id });
+                }
+                else
+                {
+                    return RedirectToAction("Desvincular", "AlunoxDocumento", new { id });
+                }
             }
             else
             {
-                return RedirectToAction("Desvincular", "AlunoxDocumento", new { id });
+                Id = idAluno;
+                return RedirectToAction("IndexDocAluno", "Documento", new { Id });
             }
-
-            
         }
 
         // GET: Documento/Create

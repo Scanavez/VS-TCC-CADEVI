@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CadeviTCC.Models.Context;
 using CadeviTCC.Models.Entities;
+using CadeviTCC.Repository;
 
 namespace CadeviTCC.Controllers
 {
@@ -15,12 +16,28 @@ namespace CadeviTCC.Controllers
     {
         private ContextBanco db = new ContextBanco();
 
+        private HomeRepository repository = new HomeRepository();
+
+
         // GET: Aluno
         public ActionResult Index()
         {
             var IdUsuario = Convert.ToInt32(Session["usuarioLogadoID"]);
-            var alunos = db.Alunos.Include(a => a.usuario);
-            return View(alunos.ToList());
+            var IdTipo = Convert.ToInt32(Session["usuarioTipo"]);
+
+            //var IdTipo = repository.getTipoUsuarioLogado();
+            ICollection<Aluno> aluno = new List<Aluno>();
+
+            if (IdTipo == 2)
+            {
+                aluno = db.Alunos.ToList();
+            }
+            else
+            {
+                aluno = db.Alunos.Where(x => x.IdUsuario == IdUsuario).ToList();
+            }
+
+            return View(aluno.ToList());
         }
 
         // GET: Aluno/Details/5
