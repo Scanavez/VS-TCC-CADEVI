@@ -65,8 +65,19 @@ namespace CadeviTCC.Controllers
         // GET: Aluno/Create
         public ActionResult Create()
         {
-            ViewBag.IdUsuario = new SelectList(db.Usuarios.Where(x => x.IdTipoUsuario == 3), "Id", "Nome");
-            return View();
+            var IdTipo = Convert.ToInt32(Session["usuarioTipo"]);
+            var IdUsuario = Convert.ToInt32(Session["usuarioLogadoID"]);
+
+            if (IdTipo == 2)
+            {
+                ViewBag.IdUsuario = new SelectList(db.Usuarios.Where(x => x.IdTipoUsuario == 1), "Id", "Nome");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
         }
 
         // POST: Aluno/Create

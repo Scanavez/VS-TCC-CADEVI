@@ -38,6 +38,7 @@ namespace CadeviTCC.Controllers
             var usuario = repository.realizarLogin(u);
             if (usuario != null)
             {
+                Session.Remove("usuarioTipo");
                 Session["usuarioLogadoID"] = usuario.Id.ToString();
                 Session["usuarioLogadoNome"] = usuario.Nome;
                 Session["usuarioTipo"] = usuario.IdTipoUsuario;

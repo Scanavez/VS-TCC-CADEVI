@@ -9,7 +9,10 @@
 <h2>Alunos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (Session["usuarioTipo"].Equals("2"))
+    {
+        @Html.ActionLink("Registrar novo aluno", "Create")
+    }
 </p>
 <table class="table">
     <tr>
