@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,7 @@ namespace CadeviTCC.Models.Entities
 
         public int Id { get; set; }
 
+        [Display(Name = "Cargo")]
         public string Descricao { get; set; }
 
         public virtual ICollection<Usuario> Usuarios { get; set; }

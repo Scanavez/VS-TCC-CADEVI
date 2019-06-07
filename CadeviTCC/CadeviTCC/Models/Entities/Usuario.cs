@@ -22,7 +22,7 @@ namespace CadeviTCC.Models.Entities
 
         public string Senha { get; set; }
 
-        [Display(Name = "Professor")]
+        [Display(Name = "Funcionário")]
         public string Nome { get; set; }
 
         public virtual TipoUsuario tipoUsuario { get; set; }

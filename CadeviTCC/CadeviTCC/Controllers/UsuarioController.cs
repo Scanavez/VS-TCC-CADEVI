@@ -23,11 +23,8 @@ namespace CadeviTCC.Controllers
         public ActionResult Index()
         {
             var usuario = db.Usuarios.ToList();
-
             var tipoUsuario = db.TipoUsuarios.ToList();
-
-            var usuarios = db.Usuarios.Include(u => u.tipoUsuario).ToList();
-
+            var usuarios = db.Usuarios.Include(u => u.tipoUsuario).Where(x => x.tipoUsuario.Id != 2).ToList();
 
             return View(usuario);
         }

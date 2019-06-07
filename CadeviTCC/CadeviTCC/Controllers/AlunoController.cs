@@ -20,17 +20,34 @@ namespace CadeviTCC.Controllers
 
 
         // GET: Aluno
-        public ActionResult Index()
+        public ActionResult Index(string pesquisa)
         {
             var IdUsuario = Convert.ToInt32(Session["usuarioLogadoID"]);
             var IdTipo = Convert.ToInt32(Session["usuarioTipo"]);
+
+
 
             //var IdTipo = repository.getTipoUsuarioLogado();
             ICollection<Aluno> aluno = new List<Aluno>();
 
             if (IdTipo == 2)
             {
-                aluno = db.Alunos.ToList();
+                if (!String.IsNullOrWhiteSpace(pesquisa))
+                {
+                    aluno = db.Alunos.Where(x => x.usuario.Nome.Contains(pesquisa)).ToList();
+
+                    //aluno = from alun in db.Alunos.ToList()
+                    //        from usua in db.Usuarios.Where(x => x.Id == alun.IdUsuario && x.Nome.Contains(pesquisa)).ToList()
+                    //        select new Aluno
+                    //        {
+                    //            Id = alun.Id,
+                    //            Nome = alun.Nome,
+                    //        };
+                }
+                else
+                {
+                    aluno = db.Alunos.ToList();
+                }
             }
             else
             {

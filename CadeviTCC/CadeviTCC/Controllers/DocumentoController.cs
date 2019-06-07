@@ -156,11 +156,13 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Descricao,HoraRegistro")] Documento documento)
         {
+            var Id = Convert.ToInt32(Session["IdAluno"]);
+
             if (ModelState.IsValid)
             {
                 db.Documentos.Add(documento);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexDocAluno", new { Id });
             }
 
             return View(documento);

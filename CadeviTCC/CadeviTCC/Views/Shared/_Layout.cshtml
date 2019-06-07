@@ -20,12 +20,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    
-		                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (Session["usuarioTipo"].Equals(2))
+                    {
                         <li>@Html.ActionLink("Alunos", "Index", "Aluno")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-	                   
-
+                        <li>@Html.ActionLink("Professores", "Index", "Usuario")</li>
+                        <li>@Html.ActionLink("Documento", "Index", "Documento")</li>
+                    }
                 </ul>
             </div>
         </div>
@@ -43,3 +43,19 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script>
+
+    @*debugger;
+
+    var menuHome = document.getElementById("home");
+
+    var idTipo = @Session["usuarioTipo"];
+
+    if (int == 1) {
+       
+    }*@
+
+
+
+</script>

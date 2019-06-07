@@ -7,7 +7,7 @@
 <h2>Arquivos</h2>
 
 <p>
-    @if (Session["usuarioTipo"].Equals("2"))
+    @if (Session["usuarioTipo"].Equals(2))
     {
         @Html.ActionLink("Registrar novo arquivo digital", "Create")
     }
@@ -27,7 +27,7 @@
         </td>
         <td>
             @Html.ActionLink("Baixar", "Download", new { id = item.Id })
-            @if (Session["usuarioTipo"].Equals("2"))
+            @if (Session["usuarioTipo"].Equals(2))
             {
                 @Html.ActionLink("| Deletar", "Delete", new { id = item.Id }) 
 
