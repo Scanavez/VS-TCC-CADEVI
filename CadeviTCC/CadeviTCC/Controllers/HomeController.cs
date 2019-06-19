@@ -47,8 +47,12 @@ namespace CadeviTCC.Controllers
 
                 return RedirectToActionPermanent("Index", "Aluno");
             }
+            else
+            {
+                return View(u);
+            }
 
-            return View(u).Mensagem("Digite seu Login", "Erro");
+            
 
         }
     }

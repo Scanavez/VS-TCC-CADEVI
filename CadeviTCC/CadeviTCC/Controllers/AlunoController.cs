@@ -169,6 +169,18 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var idsAlunoDoc = db.alunoxDocumento.Where(x => x.IdAluno == id).Select(x => x.Id).ToList();
+            foreach (var item in idsAlunoDoc)
+            {
+                var idsArq = db.ArquivoDigitalDocumento.Where(x => x.IdAlunoXDocumento == item).Select(x => x.Id).ToList();
+                foreach (var itemArq in idsArq)
+                {
+                    ArquivoDigitalDocumento arq = db.ArquivoDigitalDocumento.Find(itemArq);
+                    db.ArquivoDigitalDocumento.Remove(arq);
+                }
+                AlunoxDocumento alunodoc = db.alunoxDocumento.Find(item);
+                db.alunoxDocumento.Remove(alunodoc);
+            }
             Aluno aluno = db.Alunos.Find(id);
             db.Alunos.Remove(aluno);
             db.SaveChanges();

@@ -20,8 +20,8 @@
     <p>
         @using (Html.BeginForm("Index", "Aluno", FormMethod.Get))
         {
-            @Html.TextBox("pesquisa")
-            <input class="form-group" type="submit" value="Filtrar" />
+            @Html.TextBox("pesquisa", null, htmlAttributes: new { @class = "form-control" })  <input class="form-group" type="submit" value="Filtrar" />
+           
         }
     </p>
 }
@@ -41,8 +41,12 @@
             </td>
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |*@
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                @if (Session["usuarioTipo"].Equals(2))
+                {
+                   // @Html.ActionLink("Delete |", "Delete", new { id = item.Id })
+                    <button class="btn btn-sm btn-warning" type="button" onclick="MensagemConfirma('Atenção','Quando excluir aluno, todos os documentos e arquivos vinculados serão excluidos. Deseja realmente continuar','@Url.Action("Delete", "Aluno", new { id = item.Id })')">Deletar</button>
+                }
                 @Html.ActionLink("Documentos", "DocumentosAluno", new { id = item.Id })
             </td>
         </tr>
