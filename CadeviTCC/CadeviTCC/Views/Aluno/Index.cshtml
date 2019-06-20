@@ -11,7 +11,8 @@
 <p>
     @if (Session["usuarioTipo"].Equals(2))
     {
-        @Html.ActionLink("Registrar novo aluno", "Create")
+        @*@Html.ActionLink("Registrar novo aluno", "Create")*@
+    <button class="btn btn-sm btn-success" type="button">@Html.ActionLink("Registrar novo aluno", "Create")</button>
     }
 </p>
 
@@ -20,8 +21,11 @@
     <p>
         @using (Html.BeginForm("Index", "Aluno", FormMethod.Get))
         {
-            @Html.TextBox("pesquisa", null, htmlAttributes: new { @class = "form-control" })  <input class="form-group" type="submit" value="Filtrar" />
-           
+        <div class="form-inline">
+            @Html.TextBox("pesquisa", null, htmlAttributes: new { @class = "form-control form-inline" })
+            <input class="btn btn-default" type="submit" value="Filtrar" />
+            @*<input class="btn btn-default" type="submit" value="Limpar fitro" onclick="d"/>*@
+        </div>
         }
     </p>
 }

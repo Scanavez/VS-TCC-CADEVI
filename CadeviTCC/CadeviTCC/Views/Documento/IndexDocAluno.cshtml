@@ -9,9 +9,11 @@
 <p>
     @if (Session["usuarioTipo"].Equals(2))
     {
-        @Html.ActionLink("Vincular Documento", "VincularDocumento")
+       
+         <button class="btn btn-sm btn-success" type="button">@Html.ActionLink("Vincular Documento", "VincularDocumento")</button>
+
     }
-    </p>
+</p>
 <table class="table">
     <tr>
         <th>
@@ -29,9 +31,12 @@
             @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
             @if (Session["usuarioTipo"].Equals(2))
             {
-                @Html.ActionLink("Desvincular |", "Desvincular", new { id = item.IdDocumento }) 
+                @*@Html.ActionLink("Desvincular |", "Desvincular", new { id = item.IdDocumento })*@
+                <button class="btn btn-sm btn-warning" type="button">@Html.ActionLink("Desvincular", "Desvincular", new { id = item.IdDocumento })</button>
             }
-            @Html.ActionLink("Buscar", "Buscar", new { id = item.IdDocumento })
+                <button class="btn btn-sm btn-white" type="button">@Html.ActionLink("Buscar", "Buscar", new { id = item.IdDocumento })</button>
+
+            
         </td>
     </tr>
 }

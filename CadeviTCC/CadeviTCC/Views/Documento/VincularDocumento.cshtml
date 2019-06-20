@@ -23,9 +23,10 @@
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>
         <td>
-            @Html.ActionLink("Vincular ", "VincularNovoDocumento", new { id = item.IdDocumento })
+            <button class="btn btn-sm btn-success" type="button">@Html.ActionLink("Vincular ", "VincularNovoDocumento", new { id = item.IdDocumento })</button>
+
             @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
         </td>
     </tr>
 }
