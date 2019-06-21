@@ -24,7 +24,8 @@
         </td>
         <td>
             @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id = item.Id }) 
+            @*@Html.ActionLink("Excluir", "Delete", new { id = item.Id })*@
+            <button class="btn btn-sm btn-warning" type="button" onclick="MensagemConfirma('Atenção','Todos os vinculos com esse documento serão excluidos','@Url.Action("Delete", "Documento", new { id = item.Id })')">Deletar</button>
         </td>
     </tr>
 }

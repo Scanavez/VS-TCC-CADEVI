@@ -4,9 +4,9 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Deletar </h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Confirme para finalizar a operação</h3>
 <div>
     <h4>Documento</h4>
     <hr />
@@ -19,13 +19,13 @@
             @Html.DisplayFor(model => model.Descricao)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.HoraRegistro)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.HoraRegistro)
-        </dd>
+        </dd>*@
 
     </dl>
 
@@ -33,8 +33,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Deletar" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar", "Index")
         </div>
     }
 </div>

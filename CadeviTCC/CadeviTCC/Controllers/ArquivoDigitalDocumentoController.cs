@@ -113,6 +113,17 @@ namespace CadeviTCC.Controllers
             return View(false);
         }
 
+        public FileResult Download(int id)
+        {
+            var arquivo = db.ArquivoDigitalDocumento.Find(id);
+
+            byte[] bite = db.ArquivoDigitalDocumento.Where(x => x.Id == id).Select(x => x.Arquivo).FirstOrDefault();
+
+            byte[] b = arquivo.Arquivo;
+
+            return File(b, "application/pdf", arquivo.NomeArquivo);
+        }
+
         // GET: ArquivoDigitalDocumento/Edit/5
         public ActionResult Edit(int? id)
         {

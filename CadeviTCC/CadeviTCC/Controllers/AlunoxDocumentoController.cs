@@ -67,10 +67,19 @@ namespace CadeviTCC.Controllers
         public ActionResult Desvincular(int id)
         {
             var Id = Convert.ToInt32(Session["IdAluno"]);
+            var IdAlunoDoc = db.alunoxDocumento.Where(x => x.IdAluno == Id && x.IdDocumento == id).Select(x => x.Id).FirstOrDefault();
+            var idsArq = db.ArquivoDigitalDocumento.Where(x => x.IdAlunoXDocumento == IdAlunoDoc).Select(x => x.Id).ToList();
+
+            foreach (var item in idsArq)
+            {
+                ArquivoDigitalDocumento arq = db.ArquivoDigitalDocumento.Find(item);
+                db.ArquivoDigitalDocumento.Remove(arq);
+            }
 
             AlunoxDocumento alunoxDocumento = db.alunoxDocumento.Where(x => x.IdAluno == Id && x.IdDocumento == id).FirstOrDefault();
             db.alunoxDocumento.Remove(alunoxDocumento);
             db.SaveChanges();
+
             return RedirectToAction("IndexDocAluno", "Documento", new { Id });
         }
 

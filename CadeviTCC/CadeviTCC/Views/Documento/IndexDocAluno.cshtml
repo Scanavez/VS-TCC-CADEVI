@@ -32,11 +32,12 @@
             @if (Session["usuarioTipo"].Equals(2))
             {
                 @*@Html.ActionLink("Desvincular |", "Desvincular", new { id = item.IdDocumento })*@
-                <button class="btn btn-sm btn-warning" type="button">@Html.ActionLink("Desvincular", "Desvincular", new { id = item.IdDocumento })</button>
+                @*<button class="btn btn-sm btn-warning" type="button">@Html.ActionLink("Desvincular", "Desvincular", new { id = item.IdDocumento })</button>*@
+                <button class="btn btn-sm btn-warning" type="button" onclick="MensagemConfirma('Atenção','Todos os documentos vinculas serão excluidos. Deseja mesmo continuar?','@Url.Action("Desvincular", new { id = item.IdDocumento })')">Desvincular</button>
             }
-                <button class="btn btn-sm btn-white" type="button">@Html.ActionLink("Buscar", "Buscar", new { id = item.IdDocumento })</button>
+            <button class="btn btn-sm btn-white" type="button">@Html.ActionLink("Buscar", "Buscar", new { id = item.IdDocumento })</button>
 
-            
+
         </td>
     </tr>
 }

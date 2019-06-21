@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using CadeviTCC.Models.Context;
 using CadeviTCC.Models.Context.Entities;
 using CadeviTCC.Models.DTO;
+using CadeviTCC.Models.Entities;
 using CadeviTCC.Repository;
 
 namespace CadeviTCC.Controllers
@@ -103,15 +104,15 @@ namespace CadeviTCC.Controllers
                                            IdDocumento = alunoDoc.Id
                                        };
 
-                if (existeArqDigital.Count() > 0)
-                {
-                    Id = idAluno;
-                    return RedirectToAction("IndexDocAluno", "Documento", new { Id });
-                }
-                else
-                {
+                //if (existeArqDigital.Count() > 0)
+                //{
+                //    Id = idAluno;
+                //    return RedirectToAction("IndexDocAluno", "Documento", new { Id });
+                //}
+                //else
+                //{
                     return RedirectToAction("Desvincular", "AlunoxDocumento", new { id });
-                }
+                //}
             }
             else
             {
@@ -158,11 +159,12 @@ namespace CadeviTCC.Controllers
         {
             var Id = Convert.ToInt32(Session["IdAluno"]);
 
+            documento.HoraRegistro = DateTime.Now;
             if (ModelState.IsValid)
             {
                 db.Documentos.Add(documento);
                 db.SaveChanges();
-                return RedirectToAction("IndexDocAluno", new { Id });
+                return RedirectToAction("Index");
             }
 
             return View(documento);
@@ -219,6 +221,24 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
+            var idsDocuAluno = db.alunoxDocumento.Where(x => x.IdDocumento == id).Select(x => x.Id).ToList();
+
+            foreach (var itemAlunoDocu in idsDocuAluno)
+            {
+                var idsArqui = db.ArquivoDigitalDocumento.Where(x => x.IdAlunoXDocumento == itemAlunoDocu).Select(x => x.Id).ToList();
+
+                foreach (var itemArqui in idsArqui)
+                {
+                    ArquivoDigitalDocumento arquivoDigital = db.ArquivoDigitalDocumento.Find(itemArqui);
+                    db.ArquivoDigitalDocumento.Remove(arquivoDigital);
+                }
+
+                AlunoxDocumento alunoDoc = db.alunoxDocumento.Find(itemAlunoDocu);
+                db.alunoxDocumento.Remove(alunoDoc);
+
+            }
+
             Documento documento = db.Documentos.Find(id);
             db.Documentos.Remove(documento);
             db.SaveChanges();
