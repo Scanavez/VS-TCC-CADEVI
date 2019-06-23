@@ -5,30 +5,51 @@
 }
 
 <h2>Inserir arquivo</h2>
-
-@using (Html.BeginForm(Html.BeginForm("Create", "arquivoDigitalDocumento", null, FormMethod.Post, new { enctype = "multipart/form-data" }))) 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+@using (Html.BeginForm(Html.BeginForm("Create", "arquivoDigitalDocumento", null, FormMethod.Post, new { enctype = "multipart/form-data" })))
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Realize o upload do arquivo</h4>
-    <hr />
 
-    <div class="form-group">
-        @Html.Label("Arquivo", new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="file" id="upload" name="upload" />
+    <div class="form-horizontal">
+        <h4>Realize o upload do arquivo</h4>
+        <hr />
+
+        <div class="form-group">
+            @Html.Label("Arquivo", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="image-file" name="upload" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Subir" class="btn btn-default" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Subir" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
     @Html.ActionLink("Voltar", "Index")
 </div>
+
+
+    <script type="text/javascript">
+        $(document).bind('change', function (form) {
+            debugger;
+            var arquivo = document.getElementById('image-file');
+           // alert('This file size is: ' + this.files[0].size / 1024 / 1024 + "MB");
+
+            var tamanho = arquivo.files[0].size;
+
+            if (tamanho > 800000) {
+                alert('O arquivo não suportado');
+                arquivo.value = "";
+            }
+
+
+        });
+    </script>
+
+
+

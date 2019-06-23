@@ -83,34 +83,40 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Arquivo")] ArquivoDigitalDocumento arquivoDigitalDocumento, HttpPostedFileBase upload)
         {
+            if (upload == null)
+                return RedirectToAction("Create");
+
             var idVinculo = Convert.ToInt32(Session["VincAlunoDoc"]);
             var id = Convert.ToInt32(Session["IdAluno"]);
-
-            if (ModelState.IsValid)
+            var Nome = System.IO.Path.GetFileName(upload.FileName);
+            var nomeArquivo = Nome.Split('.');
+            if (nomeArquivo[1].Equals("pdf"))
             {
-                if (upload != null && upload.ContentLength > 0)
+                if (ModelState.IsValid)
                 {
-                    var Nome = System.IO.Path.GetFileName(upload.FileName);
-
-                    var nomeArquivo = Nome.Split('.')[0];
-
-                    var arquivo = new ArquivoDigitalDocumento
+                    if (upload != null && upload.ContentLength > 0)
                     {
-                        NomeArquivo = Nome,
-                    };
-                    using (var reader = new System.IO.BinaryReader(upload.InputStream))
-                    {
-                        arquivo.Arquivo = reader.ReadBytes(upload.ContentLength);
+
+
+                        var arquivo = new ArquivoDigitalDocumento
+                        {
+                            NomeArquivo = Nome,
+                        };
+                        using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                        {
+                            arquivo.Arquivo = reader.ReadBytes(upload.ContentLength);
+                        }
+                        arquivoDigitalDocumento.Arquivo = arquivo.Arquivo;
+                        arquivoDigitalDocumento.NomeArquivo = arquivo.NomeArquivo;
+                        arquivoDigitalDocumento.IdAlunoXDocumento = idVinculo;
                     }
-                    arquivoDigitalDocumento.Arquivo = arquivo.Arquivo;
-                    arquivoDigitalDocumento.NomeArquivo = arquivo.NomeArquivo;
-                    arquivoDigitalDocumento.IdAlunoXDocumento = idVinculo;
+                    db.ArquivoDigitalDocumento.Add(arquivoDigitalDocumento);
+                    db.SaveChanges();
+                    return RedirectToAction("IndexDocDigital", new { id });
                 }
-                db.ArquivoDigitalDocumento.Add(arquivoDigitalDocumento);
-                db.SaveChanges();
-                return RedirectToAction("IndexDocDigital", new { id });
             }
-            return View(false);
+
+            return RedirectToAction("Create");
         }
 
         public FileResult Download(int id)

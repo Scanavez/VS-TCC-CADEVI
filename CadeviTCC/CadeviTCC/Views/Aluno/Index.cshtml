@@ -16,7 +16,7 @@
     }
 </p>
 
-@if (Session["usuarioTipo"].Equals(2))
+@if (Session["usuarioTipo"].Equals(2) || Session["usuarioTipo"].Equals(1))
 {
     <p>
         @using (Html.BeginForm("Index", "Aluno", FormMethod.Get))
@@ -48,10 +48,12 @@
         @Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
                 @if (Session["usuarioTipo"].Equals(2))
                 {
-                   // @Html.ActionLink("Delete |", "Delete", new { id = item.Id })
                     <button class="btn btn-sm btn-warning" type="button" onclick="MensagemConfirma('Atenção','Quando excluir aluno, todos os documentos e arquivos vinculados serão excluidos. Deseja realmente continuar','@Url.Action("Delete", "Aluno", new { id = item.Id })')">Deletar</button>
+                    <button class="btn btn-sm btn-white" type="button">@Html.ActionLink("Editar", "Edit", new { id = item.Id })</button>
                 }
-                @Html.ActionLink("Documentos", "DocumentosAluno", new { id = item.Id })
+                <button class="btn btn-sm btn-white" type="button">@Html.ActionLink("Documentos", "DocumentosAluno", new { id = item.Id })</button>
+
+
             </td>
         </tr>
     }

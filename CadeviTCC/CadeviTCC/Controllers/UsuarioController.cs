@@ -122,6 +122,16 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var idsAluno = db.Alunos.Where(x => x.IdUsuario == id).Select(x => x.Id).ToList();
+
+            foreach (var itemaluno in idsAluno)
+            {
+                Aluno aluno = db.Alunos.Find(itemaluno);
+                aluno.IdUsuario = null;
+                db.Entry(aluno).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
             Usuario usuario = db.Usuarios.Find(id);
             db.Usuarios.Remove(usuario);
             db.SaveChanges();

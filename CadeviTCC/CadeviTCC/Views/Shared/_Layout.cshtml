@@ -20,10 +20,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Aluno", "Index", "Aluno")</li>
                     @if (Session["usuarioTipo"].Equals(2))
                     {
-                        <li>@Html.ActionLink("Alunos", "Index", "Aluno")</li>
-                        <li>@Html.ActionLink("Professores", "Index", "Usuario")</li>
+                        <li>@Html.ActionLink("Usuário", "Index", "Usuario")</li>
                         <li>@Html.ActionLink("Documento", "Index", "Documento")</li>
                     }
                 </ul>

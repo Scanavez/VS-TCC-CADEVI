@@ -18,7 +18,7 @@ namespace CadeviTCC.Models.Entities
 
         public string Nome { get; set; }
 
-        public int IdUsuario { get; set; }
+        public int? IdUsuario { get; set; }
 
         public virtual Usuario usuario { get; set; }
 

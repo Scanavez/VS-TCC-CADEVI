@@ -30,19 +30,11 @@ namespace CadeviTCC.Controllers
             //var IdTipo = repository.getTipoUsuarioLogado();
             ICollection<Aluno> aluno = new List<Aluno>();
 
-            if (IdTipo == 2)
+            if (IdTipo == 2 || IdTipo == 1)
             {
                 if (!String.IsNullOrWhiteSpace(pesquisa))
                 {
                     aluno = db.Alunos.Where(x => x.usuario.Nome.Contains(pesquisa)).ToList();
-
-                    //aluno = from alun in db.Alunos.ToList()
-                    //        from usua in db.Usuarios.Where(x => x.Id == alun.IdUsuario && x.Nome.Contains(pesquisa)).ToList()
-                    //        select new Aluno
-                    //        {
-                    //            Id = alun.Id,
-                    //            Nome = alun.Nome,
-                    //        };
                 }
                 else
                 {
@@ -128,7 +120,7 @@ namespace CadeviTCC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdUsuario = new SelectList(db.Usuarios, "Id", "Login", aluno.IdUsuario);
+            ViewBag.IdUsuario = new SelectList(db.Usuarios.Where(x => x.IdTipoUsuario == 1), "Id", "Nome", aluno.IdUsuario);
             return View(aluno);
         }
 

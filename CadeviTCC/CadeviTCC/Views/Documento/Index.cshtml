@@ -7,7 +7,9 @@
 <h2>Documentos</h2>
 
 <p>
-    @Html.ActionLink("Criar novo", "Create")
+    
+    <button class="btn btn-sm btn-success" type="button">@Html.ActionLink("Criar novo", "Create")</button>
+
 </p>
 <table class="table">
     <tr>
@@ -23,7 +25,7 @@
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+            <button class="btn btn-sm btn-white" type="button"> @Html.ActionLink("Editar", "Edit", new { id = item.Id })</button>
             @*@Html.ActionLink("Excluir", "Delete", new { id = item.Id })*@
             <button class="btn btn-sm btn-warning" type="button" onclick="MensagemConfirma('Atenção','Todos os vinculos com esse documento serão excluidos','@Url.Action("Delete", "Documento", new { id = item.Id })')">Deletar</button>
         </td>
