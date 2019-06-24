@@ -62,6 +62,13 @@ namespace CadeviTCC.Controllers
         // GET: ArquivoDigitalDocumento/Create
         public ActionResult Create()
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var IdTipo = Convert.ToInt32(Session["usuarioTipo"]);
             var id = Convert.ToInt32(Session["IdDocumento"]);
 
@@ -83,6 +90,13 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Arquivo")] ArquivoDigitalDocumento arquivoDigitalDocumento, HttpPostedFileBase upload)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (upload == null)
                 return RedirectToAction("Create");
 
@@ -133,6 +147,13 @@ namespace CadeviTCC.Controllers
         // GET: ArquivoDigitalDocumento/Edit/5
         public ActionResult Edit(int? id)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -153,6 +174,13 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,NomeArquivo,Arquivo,IdDocumento,IdAlunoXDocumento")] ArquivoDigitalDocumento arquivoDigitalDocumento)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(arquivoDigitalDocumento).State = EntityState.Modified;
@@ -166,6 +194,13 @@ namespace CadeviTCC.Controllers
         // GET: ArquivoDigitalDocumento/Delete/5
         public ActionResult Delete(int? id)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -183,6 +218,13 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var Id = Convert.ToInt32(Session["VincAlunoDoc"]);
 
 

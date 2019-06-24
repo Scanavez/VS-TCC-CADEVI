@@ -74,6 +74,13 @@ namespace CadeviTCC.Controllers
         // GET: Aluno/Create
         public ActionResult Create()
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var IdTipo = Convert.ToInt32(Session["usuarioTipo"]);
             var IdUsuario = Convert.ToInt32(Session["usuarioLogadoID"]);
 
@@ -96,6 +103,13 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nome,IdUsuario")] Aluno aluno)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Alunos.Add(aluno);
@@ -111,6 +125,13 @@ namespace CadeviTCC.Controllers
         // GET: Aluno/Edit/5
         public ActionResult Edit(int? id)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

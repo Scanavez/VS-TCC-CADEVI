@@ -32,6 +32,13 @@ namespace CadeviTCC.Controllers
         // GET: Usuario/Details/5
         public ActionResult Details(int? id)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -47,6 +54,13 @@ namespace CadeviTCC.Controllers
         // GET: Usuario/Create
         public ActionResult Create()
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             ViewBag.IdTipoUsuario = new SelectList(db.TipoUsuarios, "Id", "Descricao");
             return View();
         }
@@ -58,6 +72,13 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Login,Senha,Nome,IdTipoUsuario")] Usuario usuario)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Usuarios.Add(usuario);
@@ -72,6 +93,13 @@ namespace CadeviTCC.Controllers
         // GET: Usuario/Edit/5
         public ActionResult Edit(int? id)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -92,6 +120,13 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Login,Senha,Nome,IdTipoUsuario")] Usuario usuario)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(usuario).State = EntityState.Modified;
@@ -105,6 +140,13 @@ namespace CadeviTCC.Controllers
         // GET: Usuario/Delete/5
         public ActionResult Delete(int? id)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -122,6 +164,13 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var idsAluno = db.Alunos.Where(x => x.IdUsuario == id).Select(x => x.Id).ToList();
 
             foreach (var itemaluno in idsAluno)

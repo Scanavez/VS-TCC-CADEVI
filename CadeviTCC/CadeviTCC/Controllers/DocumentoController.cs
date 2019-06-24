@@ -85,6 +85,13 @@ namespace CadeviTCC.Controllers
 
         public ActionResult Desvincular(int id)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             //Session.Remove("IdDocumento");
             //Session["IdDocumento"] = id.ToString();
 
@@ -124,6 +131,13 @@ namespace CadeviTCC.Controllers
         // GET: Documento/Create
         public ActionResult Create()
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
@@ -157,6 +171,13 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Descricao,HoraRegistro")] Documento documento)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var Id = Convert.ToInt32(Session["IdAluno"]);
 
             documento.HoraRegistro = DateTime.Now;
@@ -173,6 +194,13 @@ namespace CadeviTCC.Controllers
         // GET: Documento/Edit/5
         public ActionResult Edit(int? id)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -192,6 +220,13 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Descricao,HoraRegistro")] Documento documento)
         {
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(documento).State = EntityState.Modified;
@@ -221,6 +256,13 @@ namespace CadeviTCC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
+            var T = Convert.ToInt32(Session["usuarioTipo"]);
+
+            if (T != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             var idsDocuAluno = db.alunoxDocumento.Where(x => x.IdDocumento == id).Select(x => x.Id).ToList();
 
